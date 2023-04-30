@@ -1,0 +1,90 @@
+commit 9aff13c15721c65f71c8de342e67d06d7d30e001
+Author: Zhengbin Lu <zl15g22@soton.ac.uk>
+Date:   Sun Feb 26 13:58:36 2023 +0000
+
+    Add the report as Tex.
+
+commit 093f1ca0f6a3d3d06ac9c660c659812a9ef21191
+Author: Zhengbin Lu <zl15g22@soton.ac.uk>
+Date:   Sun Feb 26 13:58:13 2023 +0000
+
+    Add the report as Log.
+
+commit 36c10412a6821c546fcb0acf3aa18905a8523cdd
+Author: Zhengbin Lu <zl15g22@soton.ac.uk>
+Date:   Sun Feb 26 13:57:29 2023 +0000
+
+    Add the report as PDF.
+
+commit ca3d7bbf9b587a7be50e984aa32674353e260e9f
+Merge: 0fe6407 df06a6c
+Author: Zhengbin Lu <zl15g22@soton.ac.uk>
+Date:   Sun Feb 26 12:45:58 2023 +0000
+
+    Resolve the conflict, and remove the redundant contents.
+
+commit 0fe64074e66ee641a9a1cbb4aff7da7ce4541c88
+Author: Zhengbin Lu <zl15g22@soton.ac.uk>
+Date:   Sun Feb 26 12:41:27 2023 +0000
+
+    Initial creation of python-plot-script from working branch
+
+commit df06a6c04144113cc02c8f370d529f25372c6f63
+Author: Zhengbin Lu <zl15g22@soton.ac.uk>
+Date:   Sun Feb 26 12:41:26 2023 +0000
+
+    Added new function to the python-plot-script from python-addon
+
+commit 2dda42a07f3f15b1857c7352de76e02ca239ab02
+Author: Zhengbin Lu <zl15g22@soton.ac.uk>
+Date:   Sun Feb 26 12:40:53 2023 +0000
+
+    Add the plot of Al212020.
+
+commit c422f0cd44be9f156c41f34a7cad6bebf97dbca5
+Author: Zhengbin Lu <zl15g22@soton.ac.uk>
+Date:   Sun Feb 26 12:40:00 2023 +0000
+
+    Add the plot of Al122020.
+
+commit 0ce9d6b668c1da19ffcb22c85e9c3ce49a896eb1
+Author: Zhengbin Lu <zl15g22@soton.ac.uk>
+Date:   Sun Feb 26 12:39:32 2023 +0000
+
+    Add the plot of Al112020.
+
+commit 1babb5f03bec2f6e57fac12daef6ff30e90ae160
+Author: Zhengbin Lu <zl15g22@soton.ac.uk>
+Date:   Sun Feb 26 12:39:07 2023 +0000
+
+    Add the plot of Al102020.
+
+commit 5eaee1c703100bd7c31eb434c82953e591fbcc6d
+Author: Zhengbin Lu <zl15g22@soton.ac.uk>
+Date:   Sun Feb 26 12:38:26 2023 +0000
+
+    Add the plot of Al012020.
+
+commit f2a476e14967617a84aebfd389840276e7d3eff8
+Author: Zhengbin Lu <zl15g22@soton.ac.uk>
+Date:   Sun Feb 26 12:35:26 2023 +0000
+
+    Refine the format of the data.
+
+commit 66b174c331e3cf9bfec312776ba2e3cbe23f88fb
+Author: Zhengbin Lu <zl15g22@soton.ac.uk>
+Date:   Sun Feb 26 12:27:55 2023 +0000
+
+    Add the header line of the data.
+
+commit 109420c6adc681208278c92ef13d97ac0656560e
+Author: Zhengbin Lu <zl15g22@soton.ac.uk>
+Date:   Sun Feb 26 12:14:09 2023 +0000
+
+    Finish the bash and correct some error.
+
+commit 56fbcfbedf483429cb08af4049e1f34527eb9273
+Author: Zhengbin Lu <zl15g22@soton.ac.uk>
+Date:   Sun Feb 26 12:07:09 2023 +0000
+
+    Build up the majority part of the bash.

@@ -1,0 +1,188 @@
+% ----
+% COMP1204 CW1 Report Document
+% ----
+\documentclass[]{article}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage[font=small,labelfont=bf]{caption}
+
+% Set up the format of the code part
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Simulate the same format of the bash.
+\lstdefinestyle{codestyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+% Reduce the margin size, as they're quite big by default
+\usepackage[margin=1in]{geometry}
+
+\title{COMP1204: Data Management \\ Coursework One: Hurricane Monitoring }
+% Update these!
+\author{Zhengbin Lu \\ zl15g22}
+
+% Actually start the report content
+\begin{document}
+
+% Add title, author and date info
+\maketitle
+
+\section{Introduction}
+This coursework covers three parts, Unix scripting for file processing, report writing using Latex, and use of Git for version control. 
+
+\vspace{2 ex}
+\noindent
+In this work, we're required to process data from the hurricane as a KML file by using Unix script, extract the important information, reformat the data and convert it into a CSV file, resolve the Git conflict by using version control and writing the report in latex format.
+
+\vspace{2 ex}
+\noindent
+This report details how the Unix script work and the plots of hurricane after processing the data. Meanwhile, it contains the usage of resolving conflict.
+
+\section{Create CSV Script}
+Here is the detail of the Unix script. It cleans the data from KML file, reformat it and finally outputs into a CSV file.
+
+\begin{lstlisting}[language=bash, style=codestyle, caption = CSV Script]
+#!/bin/bash
+
+#fetching the arguement of the input and output file 
+input=$1
+output=$2
+
+# Displays the file which being processed, and the output file name.
+echo "Converting $input -> $output"
+
+#Output the header line which contains the basic information
+# ">" - to initialize the file
+echo "Timestamp,Latitude,Longitude,MinSeaLevelPressure,MaxIntensity" > $output
+
+#cat - displays the content of the file
+#grep - fetches the line which contains the keyword "UTC,N,mb,knots"
+#sed - deletes the lines which contain the useless information by the keywords 
+#sed - deletes the irrevelent words and notations
+#paste - merges every four lines into one line, each line is separated by a space
+#awk - prints the column which contains the relevant information
+#sed - replaces ";" by a space
+#sed - adjusts the format and replaces the unnecessary space between the words
+#sed - deletes the space which at the end of the line
+#">>" - to append the csv file
+cat $input | grep -E 'UTC|N|mb|knots' | sed -E '/<(\/)?dtg|AL|TS|name|Name|Num|<TR>|TD/d' | sed -E 's/(]]>)|<(\/)?(B|td|tr|table)>//g' | paste -d ' ' - - - - | awk '{print $1, $2, $3, $4, ",", $5, $6, $7, $8, ",",$9, $10, "," $14, $15}' | sed 's/;/ /g' | sed -E 's/\s*,\s*/,/g' | sed 's/[[:space:]]*$//'>> $output
+
+#Output the finish information
+echo "Done!"
+\end{lstlisting}
+
+\section{Storm Plots}
+The plots of three hurricanes, al012020, al102020, and al112020 are as follow:
+
+\vspace{9 ex}
+\noindent
+\includegraphics[width=0.9\linewidth]{storm_plotal012020.png}
+\captionof{figure}{Storm plot for al012020.kml}
+
+\vspace{3 ex}
+\noindent
+\includegraphics[width=0.8\linewidth]{storm_plotal102020.png}
+\captionof{figure}{Storm plot for al102020.kml}
+
+\vspace{3 ex}
+\noindent
+\includegraphics[width=0.8\linewidth]{storm_plotal112020.png}
+\captionof{figure}{Storm plot for al112020.kml}
+
+\section{Git usage}
+\begin{lstlisting}[language=bash, style=codestyle, caption = Branch master]
+import pandas as pd
+import matplotlib.pyplot as plt
+import os
+import glob
+import math
+user_key = 997
+
+def plot_all_csv_pressure():
+    path = os.getcwd()
+    csv_files = glob.glob(os.path.join(path, '*.csv'))
+    
+    for f in csv_files:
+        storm = pd.read_csv(f)
+        storm['Pressure'].plot()
+        plt.show()
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash, style=codestyle, caption = Branch python-addon]
+import pandas as pd
+import os
+import glob
+import matplotlib.pyplot as plt
+user_key= 274
+
+def plot_all_csv_pressure():
+    path = os.getcwd()
+    csv_files = glob.glob(os.path.join(path, '*.csv'))
+    
+    fr f in csv_files:
+        storm = pd.read_csv(f)
+        storm['Pressure'].plot()
+        plt.show()
+		
+def plot_all_csv_intensity():
+    path = os.getcwd()
+    csv_files = glob.glob(os.path.join(path, '*.csv'))
+    
+    for f in csv_files:
+        storm = pd.read_csv(f)
+        storm['Intensity'].plot()
+        plt.show()
+\end{lstlisting}
+
+After executing the command and creating the conflict, I tried to merge the branch by using the 'git merge' command, and there was an error of version conflict. I modified the file by using vim, removed the "user key = 997" from the master branch, and the wrong function which was used to compute the pressure in the branch python-addon. Then I added the "user key = 274" and the "intensity function" from the branch python-addon, reordered the rest of the codes, removed the redundant part of the code, and resolved the conflict. After that, I added the comment by command 'git commit -am ' and pushed it into the remote repository by the command 'git push'. 
+
+\vspace{3 ex}
+\noindent
+The code after conflict resolving as follow:
+\begin{lstlisting}[language=bash, style=codestyle, caption = Script after conflict resolving]
+import pandas as pd
+import matplotlib.pyplot as plt
+import os
+import glob
+import math
+user_key = 997
+user_key= 274
+
+def plot_all_csv_pressure():
+    path = os.getcwd()
+    csv_files = glob.glob(os.path.join(path, '*.csv'))
+    
+    for f in csv_files:
+        storm = pd.read_csv(f)
+        storm['Pressure'].plot()
+        plt.show()
+		
+def plot_all_csv_intensity():
+    path = os.getcwd()
+    csv_files = glob.glob(os.path.join(path, '*.csv'))
+    
+    for f in csv_files:
+        storm = pd.read_csv(f)
+        storm['Intensity'].plot()
+        plt.show()
+\end{lstlisting}
+\end{document}
