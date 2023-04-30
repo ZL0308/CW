@@ -1,0 +1,552 @@
+% ----
+% COMP1204 CW1 Report Document
+% ----
+\documentclass[]{article}
+
+% Reduce the margin size, as they're quite big by default
+\usepackage{subfigure}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=0.5in]{geometry}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{codestyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+
+\title{COMP1204: Data Management \\ \vspace{3 ex} Coursework Two }
+% Update these!
+\author{Zhengbin Lu \\ \vspace{3 ex} 33839239}
+
+% Actually start the report content
+\begin{document}
+
+\begin{titlepage}
+\thispagestyle{empty}
+\maketitle
+\end{titlepage}
+
+\section{The Relational Model}
+\subsection{EX1}
+\begin{figure}[H]
+\centering
+\subfigure[Relation Table 1]{
+\begin{minipage}{0.45\textwidth}
+\centering
+\begin{tabular}{c c}
+\toprule
+Relation  & Type \\
+\midrule
+dateRep - cases & Many to many \\
+\addlinespace[0.3cm]
+dateRep - deaths & Many to many \\
+\addlinespace[0.3cm]
+dateRep - countriesAndTerritories & Many to many \\
+\addlinespace[0.3cm]
+dateRep - geoId & Many to many \\
+\addlinespace[0.3cm]
+dateRep - countryterritoryCode & Many to many \\
+\addlinespace[0.3cm]
+dateRep - popData2020 & Many to many \\
+\addlinespace[0.3cm]
+day - dateRep  & One to many \\
+\addlinespace[0.3cm]
+day - month  & Many to many \\
+\addlinespace[0.3cm]
+day - year & Many to many \\
+\addlinespace[0.3cm]
+day - cases & Many to many \\
+\addlinespace[0.3cm]
+day - deaths & Many to many \\
+\addlinespace[0.3cm]
+day - countriesAndTerritories & Many to many \\
+\addlinespace[0.3cm]
+day - geoId & Many to many \\
+\addlinespace[0.3cm]
+day - countryterritoryCode & Many to many \\
+\addlinespace[0.3cm]
+day - popData2020 & Many to many \\
+\addlinespace[0.3cm]
+month - dateRep & One to many \\
+\addlinespace[0.3cm]
+month - year & Many to many \\
+\addlinespace[0.3cm]
+month - cases & Many to many \\
+\addlinespace[0.3cm]
+month - deaths & Many to many \\
+\addlinespace[0.3cm]
+month - countriesAndTerritories & Many to many \\
+\addlinespace[0.3cm]
+month - geoId & Many to many \\
+\addlinespace[0.3cm]
+month - countryterritoryCode & Many to many \\
+\addlinespace[0.3cm]
+month - popData2020 & Many to many \\
+\addlinespace[0.3cm]
+year - dateRep & One to many \\
+\addlinespace[0.3cm]
+year - cases & Many to many \\
+\addlinespace[0.3cm]
+year - deaths & Many to many \\
+\addlinespace[0.3cm]
+year - countriesAndTerritories & Many to many \\
+\addlinespace[0.3cm]
+\bottomrule
+\end{tabular}
+\end{minipage}
+}
+\hspace{-0.3cm}
+\subfigure[Relation Table 2]{
+\begin{minipage}{0.45\textwidth}
+\centering
+\begin{tabular}{c c}
+\toprule
+Relation & Type \\
+\midrule
+year - geoId & Many to many \\
+\addlinespace[0.3cm]
+year - countryterritoryCode & Many to many \\
+\addlinespace[0.3cm]
+year - popData2020 & Many to many \\
+\addlinespace[0.3cm]
+cases - deaths & Many to many \\
+\addlinespace[0.3cm]
+cases - countriesAndTerritories & Many to many \\
+\addlinespace[0.3cm]
+cases - geoId & Many to many \\
+\addlinespace[0.3cm]
+cases - countryterritoryCode & Many to many \\
+\addlinespace[0.3cm]
+cases - popData2020 & Many to many \\
+\addlinespace[0.3cm]
+deaths - countriesAndTerritories & Many to many \\
+\addlinespace[0.3cm]
+deaths - geoId & Many to many \\
+\addlinespace[0.3cm]
+deaths - countryterritoryCode & Many to many \\
+\addlinespace[0.3cm]
+deaths - popData2020 & Many to many \\
+\addlinespace[0.3cm]
+countriesAndTerritories - geoId & One to one \\
+\addlinespace[0.3cm]
+countriesAndTerritories - countryterritoryCode & One to one \\
+\addlinespace[0.3cm]
+countriesAndTerritories - popData2020 & One to many \\
+\addlinespace[0.3cm]
+geoId - countryterritoryCode & One to one \\
+\addlinespace[0.3cm]
+geoId - popData2020 & One to many \\
+\addlinespace[0.3cm]
+countryterritoryCode - popData2020 & One to many \\
+\addlinespace[0.3cm]
+continentExp - dateRep & Many to many \\
+\addlinespace[0.3cm]
+continentExp - day & Many to many \\
+\addlinespace[0.3cm]
+continentExp - month & Many to many \\
+\addlinespace[0.3cm]
+continentExp - year & Many to many \\
+\addlinespace[0.3cm]
+continentExp - cases & Many to many \\
+ \addlinespace[0.3cm]
+continentExp - deaths & Many to many \\
+\addlinespace[0.3cm]
+continentExp - countriesAndTerritories & Many to many \\
+\addlinespace[0.3cm]
+continentExp - geoId & Many to many \\
+\addlinespace[0.3cm]
+continentExp - countryterritoryCode & Many to many \\
+\addlinespace[0.3cm]
+continentExp - popData2020 & Many to many \\
+\bottomrule
+\end{tabular}
+\end{minipage}
+}
+\caption{Relations and Type}
+\label{fig:example}
+\end{figure}
+
+\begin{table}
+\centering
+\begin{tabular}{c c}
+\toprule
+Attributes & Type \\
+\midrule
+dateRep & TEXT \\
+\addlinespace[0.3cm]
+day & INTEGER \\
+\addlinespace[0.3cm]
+month & INTEGER \\
+\addlinespace[0.3cm]
+year & INTEGER \\
+\addlinespace[0.3cm]
+cases & INTEGER \\
+\addlinespace[0.3cm]
+deaths & INTEGER \\
+\addlinespace[0.3cm]
+countriesAndTerritories & TEXT \\
+\addlinespace[0.3cm]
+geoId & TEXT \\
+\addlinespace[0.3cm]
+countryterritoryCode & TEXT \\
+\addlinespace[0.3cm]
+popData2020 & INTEGER \\
+\addlinespace[0.3cm]
+continentExp & TEXT \\
+\bottomrule
+\end{tabular}
+\caption{Attribute Tab}
+\label{tab:example}
+\end{table}
+
+\subsection{EX2}
+The continentExp can't identify a continent uniquely if there is any other continent will be covered in the data in the future. The popData2020 can't uniquely identify a country when there is other countries with the same populatuion in the data. The date information, for instance, dateRep, day, month, and year are not null. The cases and deaths attributes can be a integer or a null value, but can't be a blank. The attribute countriesAndTerritories, geoId, countryterritoryCode, popData2020 can map to their countries as injections, thus these attributes can be determinant and they can uniquely identify their countries. 
+
+\vspace{3 ex}
+\noindent
+The FDs table is as follow. 
+\begin{table}[H]
+\centering
+\begin{tabular}{c c}
+\toprule
+Functional Dependencies \\
+\midrule
+$dateRep \rightarrow day$ \\
+\addlinespace[0.3cm]
+$dateRep \rightarrow month$ \\
+\addlinespace[0.3cm]
+$dateRep \rightarrow year$ \\
+\addlinespace[0.3cm]
+$countriesAndTerritories \rightarrow geoId$ \\
+\addlinespace[0.3cm]
+$geoId \rightarrow countryterritoryCode$ \\
+\addlinespace[0.3cm]
+$countryterritoryCode \rightarrow popData2020$ \\
+\addlinespace[0.3cm]
+$countryterritoryCode \rightarrow continentExp$ \\
+\addlinespace[0.3cm]
+$day, month, year \rightarrow dateRep$ \\
+\addlinespace[0.3cm]
+$dateRep, geoId \rightarrow cases$ \\
+\addlinespace[0.3cm]
+$dateRep, geoId \rightarrow deaths$ \\
+\addlinespace[0.3cm]
+$geoId \rightarrow countriesAndTerritories$ \\
+\addlinespace[0.3cm]
+$countryterritoryCode \rightarrow geoId$ \\
+\bottomrule
+\end{tabular}
+\caption{FDs Table}
+\label{tab:example}
+\end{table}
+
+
+\subsection{EX3}
+\begin{table}[H]
+\centering
+\begin{tabular}{c c}
+\toprule
+Potential Candidate Keys \\
+\midrule
+dateRep, countriesAndTerritories \\
+\addlinespace[0.3cm]
+dateRep, geoId \\
+\addlinespace[0.3cm]
+dateRep, countryterritoryCode \\
+\addlinespace[0.3cm]
+day, month, year, countryterritoryCode \\
+\addlinespace[0.3cm]
+day, month, year, geoId \\
+\addlinespace[0.3cm]
+day, month, year, countriesAndTerritories \\
+\bottomrule
+\end{tabular}
+\caption{Candidate Keys Table}
+\label{tab:example}
+\end{table}
+\subsection{EX4}
+The candidate key is composed by two part, the date attribute and the country attribute, so the primary key that I choose is
+
+\vspace{3 ex}
+\noindent
+ \hspace{8cm}\textbf{dateRep, geoId}
+
+\vspace{3 ex}
+\noindent
+dataRep contains the exact date of each case and death, and geoId contains the country detail. Compared with other candidate key, this one is more concise.
+
+\section{Normalisation}
+\subsection{EX5}
+$dateRep \rightarrow continentExp, popData2020$
+
+\noindent
+$geoId \rightarrow continentExp, popData2020$
+
+\vspace{3 ex}
+\noindent
+continentExp and popData2020 are not key attributes, they dependent on the part of candidate key geoId or dateRep, thus these two attributes partialy dependent on the primary key.
+
+\vspace{3 ex}
+\noindent
+The partial dependencies result in an addtional relation for decomposition.
+
+\noindent
+$geoId, dateRep \rightarrow continentExp, popData2020$
+
+\subsection{EX6}
+When decomposing, I need to introduce extra two INTEGER attributes, \textbf{data\_ID} and \textbf{geo\_ID} as surrogate keys. Using surrogate keys can guarantee that each row in the table can be identified uniquely. Furthermore, the surrogate keys will replace original primary key and as new primary key. Thus, we have the new relations in the tables:
+
+\vspace{3 ex}
+\noindent
+$data\_ID \rightarrow dateRep, day, month, year$
+
+\noindent
+$geo\_ID \rightarrow geoId, countriesAndTerritories, countryterritoryCode$
+
+\noindent
+$geo\_ID \rightarrow popData2020, cotinentExp$ 
+
+\noindent
+$data\_ID, geo\_ID \rightarrow cases, deaths$ 
+
+\vspace{3 ex}
+\noindent
+The field of these two attributes are geo\_ID and data\_ID, and the type of these two attributes is INTEGER, as surrogate keys in the table.
+
+\subsection{EX7}
+According to the definition of the transitive dependent, the primary key in relation geo\_ID $->$ geoId, countriesAndTerritories, countryterritoryCode is geo\_ID, the rest of attributes are the part of candidate key, and dependent on the primary key, so there is no transitive dependent. For the other relation, it is obviousely that there is no transitive dependent.
+
+\subsection{EX8}
+Depending on assumptions I have made and earlier processes, i'm already in the 3NF. In the relations I provided, there is no transitive dependency. Therefore there are no non-key attributes that are transitively dependent on any candidate key. For every FD $A \rightarrow b$, A is a super key, b is either a key or non-key. For the key attribute in the relation, it can only be implied by super key, for non-key attribute, there is no transitive dependency. 
+
+\subsection{EX9}
+The relations above are already in BCNF, for each FD, the determinant is candidate key, and it can identify a unique row. There is only one relation $data\_ID \rightarrow dateRep, day, month, year$ have more than one attribute in the candidate but the keys are disjoint. Thus, the relations are already in BCNF.
+
+\section{Modelling}
+\subsection{EX10}
+1. Starts terminal and input \textbf{sqlite3 coronavirus.db} to create a empty coronavirus.db
+
+\noindent
+2. Inputs \textbf{.mode csv} to shift into the csv mode and use \textbf{.import dataset.csv dataset} to import the csv file into the table dataset in coronavirus.db.
+
+\noindent
+3. Uses \textbf{.output dataset.sql} to set the output file.
+
+\noindent
+4. Uses the \textbf{.dump} to dump the database as the dataset.sql.
+
+\noindent
+5. Runs \textbf{sqlite3 coronavirus.db $<$ dataset.sql} to populate the dataset table.
+\subsection{EX11}
+The SQL with full normalised representation is as follow. The surrogate keys that I'm introduced is ID in the table Data and CountriesAndTerritories, these keys can increase automatically and identify each row uniquely in the table.   
+
+\vspace{3 ex}
+\noindent
+\begin{lstlisting}[language=SQL,style=codestyle]
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE Date
+(
+    ID      INTEGER PRIMARY KEY AUTOINCREMENT,
+    dateRep TEXT    NOT NULL UNIQUE,
+    day     INTEGER NOT NULL,
+    month   INTEGER NOT NULL,
+    year    INTEGER NOT NULL
+);
+
+CREATE TABLE CountriesAndTerritories
+(
+    ID                      INTEGER PRIMARY KEY AUTOINCREMENT,
+    geoId                   TEXT NOT NULL UNIQUE,
+    countriesAndTerritories TEXT NOT NULL UNIQUE ,
+    countryterritoryCode    TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE PopAndContinent
+(
+    geo_ID       INTEGER NOT NULL,
+    popDate2020  INTEGER NOT NULL,
+    continentExp TEXT    NOT NULL,
+    FOREIGN KEY (geo_ID) references CountriesAndTerritories (ID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+CREATE TABLE CasesAndDeaths
+(
+    data_ID INTEGER,
+    geo_ID  INTEGER,
+    cases   INTEGER,
+    deaths  INTEGER,
+    PRIMARY KEY (data_ID, geo_ID),
+    FOREIGN KEY (data_ID) references Date (ID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (geo_ID) REFERENCES CountriesAndTerritories (ID)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+\end{lstlisting}
+\subsection{EX12}
+\begin{lstlisting}[language=SQL,style=codestyle]
+INSERT INTO Date (dateRep, day, month, year)
+SELECT DISTINCT dateRep, day, month, year
+FROM dataset
+LIMIT -10 OFFSET 1;
+
+INSERT INTO CountriesAndTerritories (geoId, countriesAndTerritories, countryterritoryCode)
+SELECT DISTINCT geoId, countriesAndTerritories, countryterritoryCode
+FROM dataset
+LIMIT -10 OFFSET 1;
+
+INSERT INTO PopAndContinent (geo_ID, popDate2020, continentExp)
+SELECT DISTINCT C.ID, popData2020, continentExp
+FROM dataset
+         JOIN CountriesAndTerritories C ON dataset.geoId = C.geoId;
+
+INSERT INTO CasesAndDeaths (data_ID, geo_ID, cases, deaths)
+SELECT DISTINCT D.ID, C.ID, cases, deaths
+FROM dataset
+         JOIN Date D ON dataset.dateRep = D.dateRep
+         JOIN CountriesAndTerritories C ON dataset.geoId = C.geoId;
+\end{lstlisting}
+\subsection{EX13}
+Successfully run the command and end up with a fully populated database.
+
+\section{Querying}
+\subsection{EX14}
+\begin{lstlisting}[language=SQL,style=codestyle]
+SELECT SUM(cases) as casesSum, SUM(deaths) as deathsSum
+FROM CasesAndDeaths;
+\end{lstlisting}
+\subsection{EX15}
+\begin{lstlisting}[language=SQL,style=codestyle]
+SELECT D.dateRep, cases FROM  CasesAndDeaths
+JOIN Date D on CasesAndDeaths.data_ID = D.ID
+JOIN CountriesAndTerritories CAT on CasesAndDeaths.geo_ID = CAT.ID
+WHERE geoId = 'UK'
+ORDER BY year, month, day;
+\end{lstlisting}
+\subsection{EX16}
+\begin{lstlisting}[language=SQL,style=codestyle]
+SELECT geoId,dateRep, cases, deaths
+FROM CasesAndDeaths
+         JOIN Date D on CasesAndDeaths.data_ID = D.ID
+         JOIN CountriesAndTerritories CAT on CasesAndDeaths.geo_ID = CAT.ID
+ORDER BY year, month, day, countriesAndTerritories;
+\end{lstlisting}
+\subsection{EX17}
+\begin{lstlisting}[language=SQL,style=codestyle]
+SELECT CAT.geoId,
+    (SUM(CasesAndDeaths.cases) * 100.0 / PAC.popDate2020) || '%'  as casesPercentage,
+    (SUM(CasesAndDeaths.deaths) * 100.0 / PAC.popDate2020) || '%' as deathsPercentage
+FROM CasesAndDeaths
+         JOIN CountriesAndTerritories CAT on CasesAndDeaths.geo_ID = CAT.ID
+         JOIN PopAndContinent PAC ON CAT.ID = PAC.geo_ID
+GROUP BY CAT.geoId
+ORDER BY CAT.geoId;
+\end{lstlisting}
+\subsection{EX18}
+\begin{lstlisting}[language=SQL,style=codestyle]
+SELECT CAT.geoId,
+       (SUM(CasesAndDeaths.deaths) * 100.0 / SUM(CasesAndDeaths.cases)) || '%' as deathsPercentage
+FROM CasesAndDeaths
+         JOIN CountriesAndTerritories CAT on CasesAndDeaths.geo_ID = CAT.ID
+GROUP BY CAT.geoId
+ORDER BY deathsPercentage DESC;
+\end{lstlisting}
+\subsection{EX19}
+\begin{lstlisting}[language=SQL,style=codestyle]
+SELECT dateRep,
+       SUM(deaths) OVER (ORDER BY year, month, day) AS cumulativeDeaths,
+       SUM(cases) OVER (ORDER BY year, month, day)  AS cumulativeCases
+FROM CasesAndDeaths
+         JOIN Date D on D.ID = CasesAndDeaths.data_ID
+         JOIN CountriesAndTerritories CAT on CAT.ID = CasesAndDeaths.geo_ID
+WHERE geoId = 'UK';
+\end{lstlisting}
+\section{Extension}
+\subsection{EX20}
+\begin{lstlisting}[language=bash , style=codestyle]
+#!/bin/bash
+
+# Create an empty array to store the temporary files
+declare -a data
+
+# Create a command which will be excuted by the gnuPlot
+plot_command="plot "
+
+# Fetch the top 10 death country and iterate them, for each loop, grab the date, sum of the death and geoId from the table, and put them into a temp file after processing
+# Append the gnuPlot command
+for geoId in $(sqlite3 coronavirus.db "SELECT geoId FROM CountriesAndTerritories JOIN CasesAndDeaths CAD on CountriesAndTerritories.ID = CAD.geo_ID GROUP BY geoId ORDER BY SUM(deaths) DESC LIMIT 10;")
+do
+    Deaths=$(mktemp)
+    sqlite3 coronavirus.db "SELECT dateRep, SUM(deaths) OVER (ORDER BY year, month, day) AS cumulativeDeaths, '$geoId' as country FROM CasesAndDeaths JOIN Date D ON D.ID = CasesAndDeaths.data_ID JOIN CountriesAndTerritories CAT ON CAT.ID = CasesAndDeaths.geo_ID WHERE geoId = '$geoId' ORDER BY year, month, day;" | tr '|' ' ' > "$Deaths"
+    plot_command+=" '$Deaths' using 1:2 with lines title columnheader(3),"
+    data+=("$Deaths") # Add the temporary file to the array, and delete later
+done
+
+# Remove the final comma from the gnuPlot
+plot_command="${plot_command%,}"
+
+# Run the gnuPlot script by using a heredoc.
+# Set the key's position on the top right of picture, out of the graph.
+# Set the size and the font of the picture.
+# Set the output file
+# Set the X,Y label and the title
+# Set the x data type as time
+# Set the time format which is the same format as dateRep
+# Set the display format
+# Set the distance between two major tick marks
+# Rotate the x coordinates
+gnuplot << EOF
+set key outside top right
+set key autotitle columnheader
+set terminal pngcairo size 1000,750 enhanced font 'Verdana,10'
+set output 'graph.png'
+set xlabel 'Date'
+set ylabel 'Deaths'
+set title 'Cumulative Deaths'
+set xdata time
+set timefmt "%d/%m/%Y"
+set format x "%Y-%m-%d"
+set xtics 60*60*24*30*2
+set xtics mirror rotate by -60
+$plot_command
+EOF
+
+# Delete all the temporary files by using a loop
+for data in "${data[@]}"; do
+    rm "$data"
+done
+\end{lstlisting}
+
+\subsection{The graph of the top ten countries for cumulative deaths}
+
+\vspace{10 ex}
+\noindent
+\includegraphics[width=1\linewidth]{graph.png}
+\end{document}
