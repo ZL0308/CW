@@ -26,7 +26,7 @@ int store(int pos, struct item *arr, struct item str) {
 }
 
 double average(struct item *arr, int m) {
-    if (arr == NULL || m > size) {
+    if (arr == NULL || m > size || m <=0 ) {
         return -1;
     }
     double sum = 0;
